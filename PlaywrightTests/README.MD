@@ -1,3 +1,5 @@
+*Disclaimer I've not used Playwright before so would optimise my approach more as I use it and learn (better design patterns)*
+
 How to Run
 
     To run all tests in terminal run the following ;-
@@ -28,4 +30,5 @@ test.describe('CSV PUT tests', () => {
 }
 would need another function to populate testdata first.
 
-Could add more tests but i think you just want to see a framework not an exhaustive set of tests for a demo app 
+ToDo
+Could add more tests but i think you just want to see a framework not an exhaustive set of tests for a demo app. That app is too open ended. e.g. you could be here writing tests super long strings going in on the front end of back end but I would suggest defending against both and testing the defence works rather than adding a test here with super long strings(i.e. test 400 char max instead of the sever limit as my laptop cant take it also).

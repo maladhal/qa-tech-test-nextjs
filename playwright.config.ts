@@ -1,13 +1,7 @@
 import { defineConfig, devices } from '@playwright/test';
 
-const url = "http://127.0.0.1:3000";
-/**
- * Read environment variables from file.
- * https://github.com/motdotla/dotenv
- */
-// import dotenv from 'dotenv';
-// import path from 'path';
-// dotenv.config({ path: path.resolve(__dirname, '.env') });
+const url = "http://localhost:3000/";
+
 
 /**
  * See https://playwright.dev/docs/test-configuration.
@@ -59,8 +53,10 @@ export default defineConfig({
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
     baseURL: url,
-    //baseURL: process.env.BASE_URL,
+    //baseURL: process.env.BASE_URL, //commented out for now but useful in pipeline etc
 
+    //screeshot on fail.
+    screenshot: 'only-on-failure',
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
   },
@@ -68,7 +64,7 @@ export default defineConfig({
   /* Run your local dev server before starting the tests */
   webServer: {
     command: 'npm run dev',
-    url: url,
+    url: 'http://127.0.0.1:3000',
     reuseExistingServer: !process.env.CI,
   },
 });

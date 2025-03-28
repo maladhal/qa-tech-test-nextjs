@@ -1,7 +1,7 @@
 
-// not used in the end but useful for later... 
+import { type Page } from '@playwright/test';
 
-async function takeScreenShot(page: Page) {
+export async function takeScreenShot(page: Page) {
     await page.screenshot({
         path: 'screenshots/full-page.png',
         fullPage: false

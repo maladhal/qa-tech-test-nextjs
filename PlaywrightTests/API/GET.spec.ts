@@ -24,12 +24,10 @@ test.describe('GET /api/images', () => {
     });
 
     test('return 200 with images array when no keyword provided', async ({ request }) => {
-        //act
         const response = await request.get('/api/images');
         expect(response.status()).toBe(200);
 
         const responseBody = await response.json();
-        //assert
         expect(Array.isArray(responseBody)).toBeTruthy();
         expect(responseBody.length).toBeGreaterThan(0);
 
@@ -49,6 +47,7 @@ test.describe('GET /api/images', () => {
     });
 
     //ensure both words are found
+    //have seen this fail getting 2 back instead of 1. I cant see how tests could be colliding but passed 3 times now. 
     test('return 200 and correct image for second given keyword', async ({ request }) => {
         const response = await request.get('/api/images', {
             params: { keyword: validKeyWordsGet[1] }
