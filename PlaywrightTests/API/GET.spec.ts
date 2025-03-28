@@ -1,11 +1,11 @@
 import { test, expect } from '@playwright/test';
 import { validTitle, validUrl, validKeyWordsGet, validDate } from '../Support/sharedVariables';
 
-test.describe('GET /api/images', () => {
-    let createdImageId: string;
+let createdImageId: string;
 
-    test.beforeAll(async ({ request }) => {
-        // Create an image to use in tests
+test.beforeAll(async ({ request }) => {
+    // Create an image to use in tests
+
         const response = await request.post('/api/images', {
             data: {
                 title: validTitle,
@@ -16,12 +16,18 @@ test.describe('GET /api/images', () => {
         });
         const responseBody = await response.json();
         createdImageId = responseBody.id;
-    });
+        console.log(createdImageId);
+    
+});
 
-    test.afterAll(async ({ request }) => {
-        // Clean up created image at the end of tests
-        await request.delete(`/api/images?id=${createdImageId}`);
-    });
+
+test.afterAll(async ({ request }) => {
+    // Clean up created image at the end of tests
+    await request.delete(`/api/images?id=${createdImageId}`);
+});
+test.describe('GET /api/images', () => {
+
+    
 
     test('return 200 with images array when no keyword provided', async ({ request }) => {
         const response = await request.get('/api/images');
@@ -41,13 +47,13 @@ test.describe('GET /api/images', () => {
 
         const responseBody = await response.json();
         expect(Array.isArray(responseBody)).toBeTruthy();
-       // expect(responseBody.length).toEqual(1);
+
+        expect(responseBody.length).toEqual(1);
         await checkImageHasValidTestData(responseBody);
 
     });
 
     //ensure both words are found
-    //have seen this fail getting 2 back instead of 1. I cant see how tests could be colliding but passed 3 times now. 
     test('return 200 and correct image for second given keyword', async ({ request }) => {
         const response = await request.get('/api/images', {
             params: { keyword: validKeyWordsGet[1] }
@@ -103,5 +109,5 @@ test.describe('GET /api/images', () => {
         }
 
     }
-    
+
 });
